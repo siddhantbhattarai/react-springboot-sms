@@ -14,8 +14,8 @@ COPY src src
 # Build the application
 RUN mvn package -DskipTests
 
-# Use AdoptOpenJDK as a base image
-FROM adoptopenjdk:17-jre-hotspot
+# Use OpenJDK as a base image
+FROM openjdk:17-jre
 
 # Set the working directory
 WORKDIR /usr/src/app
