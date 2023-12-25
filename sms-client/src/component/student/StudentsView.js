@@ -21,7 +21,7 @@ const StudentsView = () => {
 
 	const loadStudents = async () => {
 		const result = await axios.get(
-			"http://localhost:9192/students",
+			"http://192.168.1.15:8080/students",
 			{
 				validateStatus: () => {
 					return true;
@@ -35,7 +35,7 @@ const StudentsView = () => {
 
 	const handleDelete = async (id) => {
 		await axios.delete(
-			`http://localhost:9192/students/delete/${id}`
+			`http://192.168.1.15:8080/students/delete/${id}`
 		);
 		loadStudents();
 	};

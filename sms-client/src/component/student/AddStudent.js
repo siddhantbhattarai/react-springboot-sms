@@ -29,7 +29,7 @@ const AddStudent = () => {
 	const saveStudent = async (e) => {
 		e.preventDefault();
 		await axios.post(
-			"http://localhost:9192/students",
+			"http://192.168.1.15:8080/students",
 			student
 		);
 		navigate("/view-students");
@@ -63,7 +63,7 @@ const AddStudent = () => {
 						Last Name
 					</label>
 					<input
-						className="form-control col-sm-6"
+					client	className="form-control col-sm-6"
 						type="text"
 						name="lastName"
 						id="lastName"

@@ -34,7 +34,7 @@ const EditStudent = () => {
 
 	const loadStudent = async () => {
 		const result = await axios.get(
-			`http://localhost:9192/students/student/${id}`
+			`http://192.168.1.15:8080/students/student/${id}`
 		);
 		setStudent(result.data);
 	};
@@ -48,7 +48,7 @@ const EditStudent = () => {
 	const updateStudent = async (e) => {
 		e.preventDefault();
 		await axios.put(
-			`http://localhost:9192/students/update/${id}`,
+			`http://192.168.1.15:8080/students/update/${id}`,
 			student
 		);
 		navigate("/view-students");
