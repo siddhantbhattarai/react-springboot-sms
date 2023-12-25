@@ -35,7 +35,7 @@ const StudentsView = () => {
 
 	const handleDelete = async (id) => {
 		await axios.delete(
-			`http://192.168.1.15:8080/students/delete/${id}`
+			`http://localhost:8080/students/delete/${id}`
 		);
 		loadStudents();
 	};

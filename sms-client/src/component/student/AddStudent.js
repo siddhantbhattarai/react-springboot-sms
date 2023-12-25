@@ -29,7 +29,7 @@ const AddStudent = () => {
 	const saveStudent = async (e) => {
 		e.preventDefault();
 		await axios.post(
-			"http://192.168.1.15:8080/students",
+			"http://localhost:8080/students",
 			student
 		);
 		navigate("/view-students");

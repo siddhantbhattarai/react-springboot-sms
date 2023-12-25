@@ -48,7 +48,7 @@ const EditStudent = () => {
 	const updateStudent = async (e) => {
 		e.preventDefault();
 		await axios.put(
-			`http://192.168.1.15:8080/students/update/${id}`,
+			`http://localhost:8080/students/update/${id}`,
 			student
 		);
 		navigate("/view-students");

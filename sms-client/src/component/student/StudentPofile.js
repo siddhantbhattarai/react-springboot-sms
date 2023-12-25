@@ -21,7 +21,7 @@ const StudentPofile = () => {
 
 	const loadStudent = async () => {
 		const result = await axios.get(
-			`http://192.168.1.15:8080/students/student/${id}`
+			`http://localhost:8080/students/student/${id}`
 		);
 		setStudent(result.data);
 	};
