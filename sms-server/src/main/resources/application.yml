@@ -1,10 +1,7 @@
-server:
-  port: 8080
-
 spring:
   datasource:
-    username: jerry
-    password: admin1234
+    username: ${SPRING_DATASOURCE_USERNAME}
+    password: ${SPRING_DATASOURCE_PASSWORD}
     url: jdbc:mysql://mysql:3306/sms_db
     driver-class-name: com.mysql.cj.jdbc.Driver
   jpa:

@@ -15,7 +15,7 @@ COPY src src
 RUN mvn package -DskipTests
 
 # Use OpenJDK as a base image
-FROM openjdk:17-jre
+FROM openjdk:17
 
 # Set the working directory
 WORKDIR /usr/src/app

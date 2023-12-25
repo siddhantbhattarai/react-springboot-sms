@@ -1,55 +1,46 @@
-# Specify the version of the Docker Compose file format
 version: '3'
 
-# Define the services that make up your application
 services:
-
-  # MySQL service
   mysql:
-    image: mysql:latest  # Use the latest MySQL image from Docker Hub
-    container_name: mysql-container  # Set a custom name for the container
-    networks:
-      - sms-network  # Connect the container to the "sms-network" network
+    image: mysql:latest
     environment:
-      MYSQL_ROOT_PASSWORD: root1234  # Set the root password for MySQL
-      MYSQL_DATABASE: sms_db  # Create a database named "sms_db"
-      MYSQL_USER: jerry  # Create a MySQL user named "jerry"
-      MYSQL_PASSWORD: admin1234  # Set the password for the MySQL user
+      MYSQL_ROOT_PASSWORD: root1234
+      MYSQL_DATABASE: sms_db
+      MYSQL_USER: jerry
+      MYSQL_PASSWORD: admin1234
     ports:
-      - "3306:3306"  # Map port 3306 on the host to port 3306 in the container
-    volumes:
-      - mysql-data:/var/lib/mysql  # Mount a named volume for persistent MySQL data storage
-
-  # SMS client service
-  sms-client:
-    build:
-      context: ./sms-client  # Build the image using the Dockerfile in the ./sms-client directory
-    container_name: sms-client-container  # Set a custom name for the container
+      - "3306:3306"
     networks:
-      - sms-network  # Connect the container to the "sms-network" network
-    ports:
-      - "3000:3000"  # Map port 3000 on the host to port 3000 in the container
-    depends_on:
-      - sms-server  # Specify that the "sms-client" service depends on the "sms-server" service
+      - sms_network
 
-  # SMS server service
   sms-server:
     build:
-      context: ./sms-server  # Build the image using the Dockerfile in the ./sms-server directory
-    container_name: sms-server-container  # Set a custom name for the container
-    networks:
-      - sms-network  # Connect the container to the "sms-network" network
+      context: ./sms-server
+      dockerfile: Dockerfile
     ports:
-      - "8080:8080"  # Map port 8080 on the host to port 8080 in the container
+      - "8080:8080"
+    networks:
+      - sms_network
     depends_on:
-      - mysql  # Specify that the "sms-server" service depends on the "mysql" service
+      - mysql
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:mysql://mysql:3306/sms_db
+      SPRING_DATASOURCE_USERNAME: jerry
+      SPRING_DATASOURCE_PASSWORD: admin1234
+    links:
+      - mysql
 
-# Define a named volume for persistent MySQL data storage
-volumes:
-  mysql-data:
-    driver: local  # Use the local driver for simplicity
+  sms-client:
+    build:
+      context: ./sms-client
+      dockerfile: Dockerfile
+    ports:
+      - "3000:3000"
+    networks:
+      - sms_network
+    depends_on:
+      - sms-server
 
-# Define a custom network named "sms-network" with the bridge driver
 networks:
-  sms-network:
+  sms_network:
     driver: bridge
