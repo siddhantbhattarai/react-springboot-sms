@@ -1,0 +1,31 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: sms-client-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: sms-client
+  template:
+    metadata:
+      labels:
+        app: sms-client
+    spec:
+      containers:
+      - name: sms-client
+        image: siddhantbhattarai/react-springboot-sms-client
+        ports:
+        - containerPort: 3000
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: sms-client-service
+spec:
+  selector:
+    app: sms-client
+  ports:
+    - protocol: TCP
+      port: 3000
+      targetPort: 3000
