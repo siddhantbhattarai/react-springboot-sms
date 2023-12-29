@@ -8,5 +8,13 @@ git clone https://github.com/siddhantbhattarai/react-springboot-sms.git
 cd react-springboot-sms
 ```
 ```
+cd sms-client
+docker build -t react-sms-client .
+```
+```
+cd sms-server
+docker-build -t springboot-sms-server .
+```
+```
 docker-compose up -d
 ``` 

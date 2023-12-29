@@ -1,8 +1,8 @@
 spring:
   datasource:
-    username: ${SPRING_DATASOURCE_USERNAME}
-    password: ${SPRING_DATASOURCE_PASSWORD}
-    url: jdbc:mysql://mysql:3306/sms_db
+    username: jerry
+    password: admin1234
+    url: jdbc:mysql://mysql_db:3306/sms_db
     driver-class-name: com.mysql.cj.jdbc.Driver
   jpa:
     show-sql: true

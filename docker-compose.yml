@@ -1,36 +1,42 @@
 version: '3'
 
 services:
-  mysql:
-    image: mysql:latest
-    environment:
-      MYSQL_ROOT_PASSWORD: root1234
-      MYSQL_DATABASE: sms_db
-      MYSQL_USER: jerry
-      MYSQL_PASSWORD: admin1234
-    ports:
-      - "3306:3306"
-    networks:
-      - sms_network
 
   sms-server:
+    container_name: springboot-sms-server
     build:
       context: ./sms-server
       dockerfile: Dockerfile
+    restart: always
     ports:
       - "8080:8080"
     networks:
       - sms_network
     depends_on:
-      - mysql
+      - mysql_db
     environment:
-      SPRING_DATASOURCE_URL: jdbc:mysql://mysql:3306/sms_db
+      SPRING_DATASOURCE_URL: jdbc:mysql://mysql_db:3306/sms_db
       SPRING_DATASOURCE_USERNAME: jerry
       SPRING_DATASOURCE_PASSWORD: admin1234
     links:
-      - mysql
+      - mysql_db
+
+  mysql_db:
+    container_name: mysql_db
+    image: mysql:latest
+    restart: always
+    environment:
+      MYSQL_DATABASE: sms_db 
+      MYSQL_USER: jerry   
+      MYSQL_PASSWORD: admin1234
+      MYSQL_ROOT_PASSWORD: root1234
+    ports:
+      - "3306:3306"
+    networks:
+      - sms_network
 
   sms-client:
+    container_name: react-sms-client
     build:
       context: ./sms-client
       dockerfile: Dockerfile
@@ -44,3 +50,4 @@ services:
 networks:
   sms_network:
     driver: bridge
+    name: sms_network
